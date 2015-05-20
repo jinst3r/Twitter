@@ -52,7 +52,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 println("error getting current user")
             })
             
-            TwitterClient
+            TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+                println("home timeline: \(response)")
+                }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error getting home timeline")
+            })
             
         }) { (error: NSError!) -> Void in
             println("Failed to receive access token")
