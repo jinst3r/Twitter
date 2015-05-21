@@ -27,9 +27,14 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
 
     func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            // println("home timeline: \(response)")
+            //println("home timeline: \(response)")
             var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
             completion(tweets: tweets, error: nil)
+            println("got home timeline")
+//            for tweet in tweets {
+//                println("tweet: \(tweet), text: \(tweet.text), created: \(tweet.createdAt)")
+//            }
+//            print(tweets)
         }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
             println("error getting home timeline")
             completion(tweets: nil, error: nil)
