@@ -24,7 +24,7 @@ class TweetCell: UITableViewCell {
             tweetImageView.setImageWithURL(NSURL(string: "\(tweet.user!.profileImageUrl!)"))
             tweetNameLabel.text = tweet.user!.name
             tweetHandleLabel.text = tweet.user!.screenname
-            tweetTimeLabel.text = tweet.createdAtString!
+            tweetTimeLabel.text = tweet.createdAtStringUsable!
             tweetContentLabel.text = tweet.text!
             replyButton.image = UIImage(named: "reply")
             retweetButton.image = UIImage(named: "retweet")

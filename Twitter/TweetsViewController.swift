@@ -11,8 +11,9 @@ import UIKit
 class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var tweets: [Tweet]?
-    
+
     @IBOutlet weak var tableView: UITableView!
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,15 +24,14 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.estimatedRowHeight = 200
 
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
-            // println("self.tweets = tweets")
             self.tweets = tweets
-            // print("what is tweets here: \(tweets)")
-            // var dictionaryTweets = NSJSONSerialization.JSONObjectWithData(tweets, options: nil, error: nil) as! NSDictionary
             self.tableView.reloadData()
-            println("success! \(tweets![0].user!.profileImageUrl)")
         })
         
-        //println("tweets at view did load: \(tweets)")
+        // refresh control
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex:0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,4 +88,21 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     */
 
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    func onRefresh() {
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
+            self.tweets = tweets
+            self.tableView.reloadData()
+        })
+        self.refreshControl.endRefreshing()
+    }
+    
 }
