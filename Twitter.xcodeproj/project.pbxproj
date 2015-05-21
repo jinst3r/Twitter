@@ -16,6 +16,7 @@
 		D298D2A01B0AFD7B0003A81B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D298D29F1B0AFD7B0003A81B /* Images.xcassets */; };
 		D298D2A31B0AFD7B0003A81B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D298D2A11B0AFD7B0003A81B /* LaunchScreen.xib */; };
 		D298D2AF1B0AFD7B0003A81B /* TwitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298D2AE1B0AFD7B0003A81B /* TwitterTests.swift */; };
+		D2C37C1E1B0DBA9200F3163C /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C37C1D1B0DBA9200F3163C /* TweetsViewController.swift */; };
 		D2E4F8B61B0AFEDB00542334 /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E4F8B51B0AFEDB00542334 /* TwitterClient.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		D298D2A81B0AFD7B0003A81B /* TwitterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwitterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D298D2AD1B0AFD7B0003A81B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D298D2AE1B0AFD7B0003A81B /* TwitterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterTests.swift; sourceTree = "<group>"; };
+		D2C37C1D1B0DBA9200F3163C /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
 		D2E4F8B11B0AFE7D00542334 /* Twitter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Twitter-Bridging-Header.h"; sourceTree = "<group>"; };
 		D2E4F8B51B0AFEDB00542334 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +127,7 @@
 				D298D2A11B0AFD7B0003A81B /* LaunchScreen.xib */,
 				D298D2961B0AFD7B0003A81B /* Supporting Files */,
 				D2E4F8B11B0AFE7D00542334 /* Twitter-Bridging-Header.h */,
+				D2C37C1D1B0DBA9200F3163C /* TweetsViewController.swift */,
 			);
 			path = Twitter;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			files = (
 				D2222D951B0C237B004F0973 /* User.swift in Sources */,
 				D2222D971B0C2388004F0973 /* Tweet.swift in Sources */,
+				D2C37C1E1B0DBA9200F3163C /* TweetsViewController.swift in Sources */,
 				D298D29B1B0AFD7B0003A81B /* ViewController.swift in Sources */,
 				D2E4F8B61B0AFEDB00542334 /* TwitterClient.swift in Sources */,
 				D298D2991B0AFD7B0003A81B /* AppDelegate.swift in Sources */,
