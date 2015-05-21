@@ -207,10 +207,10 @@
             </objects>
             <point key="canvasLocation" x="3142.5" y="658.09859154929575"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--TweetsNavigationController-->
         <scene sceneID="XDP-12-jU1">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ECz-wq-PD9" sceneMemberID="viewController">
+                <navigationController title="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="ECz-wq-PD9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Es1-Q1-5m5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
