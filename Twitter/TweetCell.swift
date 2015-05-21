@@ -21,11 +21,11 @@ class TweetCell: UITableViewCell {
 
     var tweet: Tweet! {
         didSet {
-            tweetImageView.setImageWithURL(NSURL(string: "\(tweet.user?.profileImageUrl)"))
-            tweetNameLabel.text = tweet.user?.name
-            tweetHandleLabel.text = tweet.user?.screenname
-            tweetTimeLabel.text = tweet.createdAtString
-            tweetContentLabel.text = tweet.text
+            tweetImageView.setImageWithURL(NSURL(string: "\(tweet.user!.profileImageUrl!)"))
+            tweetNameLabel.text = tweet.user!.name
+            tweetHandleLabel.text = tweet.user!.screenname
+            tweetTimeLabel.text = tweet.createdAtString!
+            tweetContentLabel.text = tweet.text!
             replyButton.image = UIImage(named: "reply")
             retweetButton.image = UIImage(named: "retweet")
             favoriteButton.image = UIImage(named: "favorite")
@@ -35,7 +35,9 @@ class TweetCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-     
+        tweetImageView.layer.cornerRadius = 4
+        tweetImageView.clipsToBounds = true
+        
         dispatch_async(dispatch_get_main_queue()) {
             self.tweetContentLabel.preferredMaxLayoutWidth = self.tweetContentLabel.frame.size.width
             

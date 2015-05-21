@@ -28,7 +28,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             // print("what is tweets here: \(tweets)")
             // var dictionaryTweets = NSJSONSerialization.JSONObjectWithData(tweets, options: nil, error: nil) as! NSDictionary
             self.tableView.reloadData()
-            println("success! \(tweets)")
+            println("success! \(tweets![0].user!.profileImageUrl)")
         })
         
         //println("tweets at view did load: \(tweets)")
@@ -42,8 +42,13 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         
-        // println("and how about here \(tweets)")
-//        cell.tweet = tweets[indexPath.row]
+        println("and how about here \(tweets)")
+        if tweets != nil {
+            cell.tweet = tweets![indexPath.row]
+            println("now it's workin")
+        } else {
+            println("try again dummy")
+        }
         
         // gets rid of white margin on the left hand side
         if (cell.respondsToSelector(Selector("setPreservesSuperviewLayoutMargins:"))){
@@ -60,8 +65,13 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // hardcode for now
-        return 20
+        if tweets != nil {
+            println("\(tweets!.count)")
+            return tweets!.count
+        } else {
+            println("you suck")
+            return 0
+        }
     }
     
     @IBAction func onLogout(sender: AnyObject) {
