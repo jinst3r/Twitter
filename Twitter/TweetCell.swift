@@ -35,15 +35,12 @@ class TweetCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        tweetImageView.layer.cornerRadius = 4
+        tweetImageView.layer.cornerRadius = 2
         tweetImageView.clipsToBounds = true
         
         dispatch_async(dispatch_get_main_queue()) {
             self.tweetContentLabel.preferredMaxLayoutWidth = self.tweetContentLabel.frame.size.width
-            
         }
-        
-        
     }
 
     override func layoutSubviews() {

@@ -66,10 +66,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tweets != nil {
-            println("\(tweets!.count)")
             return tweets!.count
         } else {
-            println("you suck")
+            println("you suck/ number of rows didn't load hmm")
             return 0
         }
     }
@@ -78,15 +77,17 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         User.currentUser?.logout()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "TweetDetailSegue" {
+            let cell = sender as! TweetCell
+            if let indexPath = tableView.indexPathForCell(cell) {
+                let tweetDetailViewController = segue.destinationViewController as! TweetDetailViewController
+                tweetDetailViewController.tweet = tweets?[indexPath.row]
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            }
+            
+        }
     }
-    */
 
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
