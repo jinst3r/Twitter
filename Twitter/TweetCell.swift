@@ -23,7 +23,7 @@ class TweetCell: UITableViewCell {
         didSet {
             tweetImageView.setImageWithURL(NSURL(string: "\(tweet.user!.profileImageUrl!)"))
             tweetNameLabel.text = tweet.user!.name
-            tweetHandleLabel.text = tweet.user!.screenname
+            tweetHandleLabel.text = "@\(tweet.user!.screenname!)"
             tweetTimeLabel.text = tweet.createdAtStringUsable!
             tweetContentLabel.text = tweet.text!
             replyButton.image = UIImage(named: "reply")
@@ -35,7 +35,7 @@ class TweetCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        tweetImageView.layer.cornerRadius = 2
+        tweetImageView.layer.cornerRadius = 4
         tweetImageView.clipsToBounds = true
         
         dispatch_async(dispatch_get_main_queue()) {

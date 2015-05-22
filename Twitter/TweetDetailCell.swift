@@ -28,7 +28,7 @@ class TweetDetailCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        tweetDetailImageView.layer.cornerRadius = 2
+        tweetDetailImageView.layer.cornerRadius = 4
         tweetDetailImageView.clipsToBounds = true
         
         dispatch_async(dispatch_get_main_queue()) {

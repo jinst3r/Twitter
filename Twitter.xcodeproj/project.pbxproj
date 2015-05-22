@@ -14,6 +14,8 @@
 		D259A7FC1B0E8B9E00C8039A /* TweetDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259A7FB1B0E8B9E00C8039A /* TweetDetailCell.swift */; };
 		D259A8001B0E8BE200C8039A /* RetweetAndFavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259A7FF1B0E8BE200C8039A /* RetweetAndFavoriteCell.swift */; };
 		D259A8021B0E8BF800C8039A /* ReplyRetweetFavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259A8011B0E8BF800C8039A /* ReplyRetweetFavoriteCell.swift */; };
+		D259A8061B0EBAE200C8039A /* ComposeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259A8051B0EBAE200C8039A /* ComposeCell.swift */; };
+		D259A8081B0EC49600C8039A /* TweetComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259A8071B0EC49600C8039A /* TweetComposeViewController.swift */; };
 		D298D2991B0AFD7B0003A81B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298D2981B0AFD7B0003A81B /* AppDelegate.swift */; };
 		D298D29B1B0AFD7B0003A81B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298D29A1B0AFD7B0003A81B /* ViewController.swift */; };
 		D298D29E1B0AFD7B0003A81B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D298D29C1B0AFD7B0003A81B /* Main.storyboard */; };
@@ -45,6 +47,8 @@
 		D259A7FB1B0E8B9E00C8039A /* TweetDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDetailCell.swift; sourceTree = "<group>"; };
 		D259A7FF1B0E8BE200C8039A /* RetweetAndFavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetweetAndFavoriteCell.swift; sourceTree = "<group>"; };
 		D259A8011B0E8BF800C8039A /* ReplyRetweetFavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyRetweetFavoriteCell.swift; sourceTree = "<group>"; };
+		D259A8051B0EBAE200C8039A /* ComposeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeCell.swift; sourceTree = "<group>"; };
+		D259A8071B0EC49600C8039A /* TweetComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetComposeViewController.swift; sourceTree = "<group>"; };
 		D298D2931B0AFD7B0003A81B /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D298D2971B0AFD7B0003A81B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D298D2981B0AFD7B0003A81B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 				D259A7FB1B0E8B9E00C8039A /* TweetDetailCell.swift */,
 				D259A7FF1B0E8BE200C8039A /* RetweetAndFavoriteCell.swift */,
 				D259A8011B0E8BF800C8039A /* ReplyRetweetFavoriteCell.swift */,
+				D259A8051B0EBAE200C8039A /* ComposeCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 				D298D29A1B0AFD7B0003A81B /* ViewController.swift */,
 				D2C37C1D1B0DBA9200F3163C /* TweetsViewController.swift */,
 				D259A7F91B0E84E900C8039A /* TweetDetailViewController.swift */,
+				D259A8071B0EC49600C8039A /* TweetComposeViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -334,10 +340,12 @@
 			files = (
 				D2222D951B0C237B004F0973 /* User.swift in Sources */,
 				D2C37C221B0DC0E200F3163C /* TweetCell.swift in Sources */,
+				D259A8061B0EBAE200C8039A /* ComposeCell.swift in Sources */,
 				D2222D971B0C2388004F0973 /* Tweet.swift in Sources */,
 				D259A8021B0E8BF800C8039A /* ReplyRetweetFavoriteCell.swift in Sources */,
 				D2C37C1E1B0DBA9200F3163C /* TweetsViewController.swift in Sources */,
 				D259A8001B0E8BE200C8039A /* RetweetAndFavoriteCell.swift in Sources */,
+				D259A8081B0EC49600C8039A /* TweetComposeViewController.swift in Sources */,
 				D259A7FC1B0E8B9E00C8039A /* TweetDetailCell.swift in Sources */,
 				D298D29B1B0AFD7B0003A81B /* ViewController.swift in Sources */,
 				D259A7FA1B0E84E900C8039A /* TweetDetailViewController.swift in Sources */,

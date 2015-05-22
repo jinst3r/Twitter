@@ -14,11 +14,15 @@ class Tweet: NSObject {
     var createdAtString: String?
     var createdAt: NSDate?
     var createdAtStringUsable: String?
+    var retweetCount: Int?
+    var favoriteCount: Int?
     
     init(dictionary: NSDictionary) {
         user = User(dictionary: dictionary["user"] as! NSDictionary)
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String
+        retweetCount = dictionary["retweet_count"] as? Int
+        favoriteCount = dictionary["favorite_count"] as? Int
 
         var formatter = NSDateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
@@ -26,7 +30,7 @@ class Tweet: NSObject {
         
         var simpleFormatter = NSDateFormatter()
         // just show hour?
-        simpleFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        // simpleFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         simpleFormatter.timeStyle = .ShortStyle
         createdAtStringUsable = simpleFormatter.stringFromDate(createdAt!)
 

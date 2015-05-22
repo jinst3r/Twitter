@@ -35,6 +35,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
 //                println("tweet: \(tweet), text: \(tweet.text), created: \(tweet.createdAt)")
 //            }
 //            print(tweets)
+
         }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
             println("error getting home timeline")
             completion(tweets: nil, error: nil)
@@ -42,6 +43,39 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         
     }
 
+    func postNewTweet(params: NSDictionary?, completion: (error: NSError?) -> ()) {
+        POST("1.1/statuses/update.json", parameters: params, success: {(operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println("tweeted!")
+            completion(error: nil)
+        }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            println("error in tweeting")
+            completion(error: error)
+        }
+    )}
+    
+    
+    func retweetTheTweet(id: Int, params: NSDictionary?, completion: (error: NSError?) -> ()) {
+        POST("1.1/statuses/retweet/\(id).json", parameters: params, success: {(operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println("retweeted!")
+            completion(error: nil)
+        }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            println("error in retweeting")
+            completion(error: error)
+        }
+    )}
+    
+    
+    func favoriteTheTweet(id: Int, params: NSDictionary?, completion: (error: NSError?) -> ()) {
+        POST("1.1/favorites/create.json?id=\(id)", parameters: params, success: {(operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println("favorited!")
+            completion(error: nil)
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error in favoriting")
+                completion(error: error)
+            }
+        )}
+    
+    
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
 

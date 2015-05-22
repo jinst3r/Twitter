@@ -53,6 +53,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
         } else if indexPath.section == 1 {
             var cell = tableView.dequeueReusableCellWithIdentifier("RetweetAndFavoriteCell", forIndexPath: indexPath) as! RetweetAndFavoriteCell
             // cleanUpMargin()
+            cell.tweetRetweetandFavorite = tweet
             return cell
         } else if indexPath.section == 2 {
             var cell = tableView.dequeueReusableCellWithIdentifier("ReplyRetweetFavoriteCell", forIndexPath: indexPath) as! ReplyRetweetFavoriteCell
