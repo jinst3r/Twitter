@@ -20,7 +20,7 @@ class TweetDetailCell: UITableViewCell {
         didSet {
             tweetDetailImageView.setImageWithURL(NSURL(string: "\(tweetDetail.user!.profileImageUrl!)"))
             tweetDetailNameLabel.text = tweetDetail.user!.name
-            tweetDetailHandleLabel.text = tweetDetail.user!.screenname
+            tweetDetailHandleLabel.text = "@\(tweetDetail.user!.screenname!)"
             tweetDetailTimeLabel.text = tweetDetail.createdAtStringUsable!
             tweetDetailContentLabel.text = tweetDetail.text!
         }

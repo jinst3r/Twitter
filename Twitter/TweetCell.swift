@@ -8,34 +8,18 @@
 
 import UIKit
 
-protocol TweetCellReplyDelegate : class {
-    func reply(tweetCell: TweetCell)
-}
-
-protocol TweetCellRetweetDelegate : class {
-    func retweet(tweetCell: TweetCell)
-}
-
-protocol TweetCellFavoriteDelegate : class {
-    func favorite(tweetCell: TweetCell)
-}
-
 class TweetCell: UITableViewCell {
-
-    weak var replyDelegate: TweetCellReplyDelegate?
-    weak var retweetDelegate: TweetCellRetweetDelegate?
-    weak var favoriteDelegate: TweetCellFavoriteDelegate?
-    
+  
     @IBOutlet weak var tweetImageView: UIImageView!
     @IBOutlet weak var tweetNameLabel: UILabel!
     @IBOutlet weak var tweetHandleLabel: UILabel!
     @IBOutlet weak var tweetTimeLabel: UILabel!
     @IBOutlet weak var tweetContentLabel: UILabel!
-    @IBOutlet weak var replyButton: UIImageView!
-    @IBOutlet weak var retweetButton: UIImageView!
-    @IBOutlet weak var favoriteButton: UIImageView!
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var favoriteCountLabel: UILabel!
+    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
 
     let tapRec = UITapGestureRecognizer()
 
@@ -46,14 +30,20 @@ class TweetCell: UITableViewCell {
             tweetHandleLabel.text = "@\(tweet.user!.screenname!)"
             tweetTimeLabel.text = tweet.createdAtStringUsable!
             tweetContentLabel.text = tweet.text!
-            replyButton.image = UIImage(named: "reply")
-            retweetButton.image = UIImage(named: "retweet")
-            favoriteButton.image = UIImage(named: "favorite")
             retweetCountLabel.text = String(tweet.retweetCount!)
             favoriteCountLabel.text = String(tweet.favoriteCount!)
-            tapRec.addTarget(replyButton, action: "tappedReply")
-            tapRec.addTarget(retweetButton, action: "tappedRetweet")
-            tapRec.addTarget(favoriteButton, action: "tappedFavorite")
+            retweeted = tweet.retweeted
+            favorited = tweet.favorited
+            if retweeted == true {
+                retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
+                retweetButton.alpha = 1.0
+                retweetCountLabel.textColor = UIColor(red: 92.0/255.0, green: 145.0/255.0, blue: 59.0/255.0, alpha: 1.0)
+            }
+            if favorited == true {
+                favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
+                favoriteButton.alpha = 1.0
+                favoriteCountLabel.textColor = UIColor(red: 255.0/255.0, green: 172.0/255.0, blue: 51.0/255.0, alpha: 1.0)
+            }
         }
     }
     
@@ -73,24 +63,36 @@ class TweetCell: UITableViewCell {
         self.tweetContentLabel.preferredMaxLayoutWidth = self.tweetContentLabel.frame.size.width
     }
     
+    @IBAction func replyShadowButton(sender: AnyObject) {
+        println("finally YES")
+    }
+    @IBAction func retweetShadowButton(sender: AnyObject) {
+        if retweeted == false {
+            TwitterClient.sharedInstance.retweetTheTweet(tweet.id!, params: nil) { (error) -> () in
+                self.retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
+                self.retweetButton.alpha = 1.0
+                self.retweetCountLabel.textColor = UIColor(red: 92.0/255.0, green: 145.0/255.0, blue: 59.0/255.0, alpha: 1.0)
+            }
+        } else {
+            // unretweet
+        }
+    }
+    @IBAction func favoriteShadowButton(sender: AnyObject) {
+        if favorited == false {
+            TwitterClient.sharedInstance.favoriteTheTweet(tweet.id!, params: nil) { (error) -> () in
+                self.favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
+                self.favoriteButton.alpha = 1.0
+                self.favoriteCountLabel.textColor = UIColor(red: 255.0/255.0, green: 172.0/255.0, blue: 51.0/255.0, alpha: 1.0)
+            }
+        } else {
+            // unretweet
+        }
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
-    
-    func tappedReply() {
-        println("reply tapped")
-    }
-    
-    func tappedRetweet() {
-        println("retweet tapped")
-    }
-
-    func tappedFavorite() {
-        println("favorite tapped")
-        favoriteDelegate?.favorite(self)
-    }
-
     
 }

@@ -14,26 +14,14 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
 
     @IBOutlet weak var tableView: UITableView!
     var refreshControl: UIRefreshControl!
-    
-    func favorite(tweetCell: TweetCell) {
-        TwitterClient.sharedInstance.favoriteTheTweet(tweetCell.tweet!.id!, params: nil) { (error) -> () in
-            tweetCell.favoriteButton.image = UIImage(named: "favorite_on")
-            let tweetInstance = tweetCell.tweet! as Tweet
-            if tweetInstance.favoriteCount! > 0 {
-                tweetCell.favoriteCountLabel.text = "\(tweetInstance.favoriteCount! + 1)"
-            } else {
-                tweetCell.favoriteCountLabel.text = "1"
-            }
-        }
-    }
-    
+       
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 250
+        tableView.estimatedRowHeight = 200
 
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
             self.tweets = tweets
@@ -58,7 +46,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         
-        println("and how about here \(tweets)")
         if tweets != nil {
             cell.tweet = tweets![indexPath.row]
             println("now it's workin")
@@ -102,7 +89,19 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }
             
+        } else if segue.identifier == "replySegueTimeline" {
+            let button = sender as! UIButton
+            let view = button.superview!
+            let cell = view.superview as! TweetCell
+            let indexPath = self.tableView.indexPathForCell(cell)
+            var tweet = tweets![indexPath!.row]
+            var replyUser = tweet.user!.screenname!
+            let tweetComposeViewController = segue.destinationViewController.topViewController as! TweetComposeViewController
+            tweetComposeViewController.replyTweetTo = "@\(replyUser)"
         }
+        
+    
+        
     }
 
     func delay(delay:Double, closure:()->()) {
