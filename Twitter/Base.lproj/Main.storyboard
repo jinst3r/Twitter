@@ -400,6 +400,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="replyButtonTapped:" destination="e7S-BP-b6Q" eventType="touchUpInside" id="lDs-OB-5D9"/>
+                                                        <segue destination="Rai-Ot-O8A" kind="presentation" identifier="replySegue" id="GIE-aZ-hPU"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyk-eu-XYW">
@@ -601,4 +602,7 @@
         <image name="reply" width="16" height="16"/>
         <image name="retweet" width="19" height="16"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="GIE-aZ-hPU"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -16,11 +16,10 @@ class TweetComposeViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var textView: UITextView!
     
     
+    var replyTweetTo: String?
+    
     @IBAction func postTweet(sender: AnyObject) {
-        var params = NSDictionary()
-        params = ["status" : textView.text]
-        println(params)
-        TwitterClient.sharedInstance.postNewTweet(params, completion: { (error) -> () in
+        TwitterClient.sharedInstance.postNewTweet(textView.text, completion: { (error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             println("tweet attempted")
         })
@@ -38,8 +37,14 @@ class TweetComposeViewController: UIViewController, UITextViewDelegate {
         imageLabel.setImageWithURL(NSURL(string: _currentUser!.profileImageUrl!))
         nameLabel.text = _currentUser!.name!
         screennameLabel.text = "@\(_currentUser!.screenname!)"
-        textView.text = "What's happening?"
-        textView.textColor = UIColor.lightGrayColor()
+
+        if replyTweetTo != nil {
+            textView.text = replyTweetTo
+            textView.textColor = UIColor.blackColor()
+        } else {
+            textView.text = "What's happening?"
+            textView.textColor = UIColor.lightGrayColor()
+        }
         
         imageLabel.layer.cornerRadius = 4
         imageLabel.clipsToBounds = true

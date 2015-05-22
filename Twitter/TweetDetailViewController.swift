@@ -70,15 +70,18 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
         return 1
     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "replySegue" {
+            
+            var replyUser = tweet?.user!.screenname!
+            let tweetComposeViewController = segue.destinationViewController.topViewController as! TweetComposeViewController
+            tweetComposeViewController.replyTweetTo = "@\(replyUser!)"
+            }
+            
     }
-    */
+    
+
     
     func cleanUpMargin() {
         var cell:UITableViewCell!
