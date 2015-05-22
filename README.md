@@ -28,5 +28,5 @@ Time spent: `26`
 
 ### Walkthrough
 
-![Video Walkthrough](...)
+![Video Walkthrough](https://github.com/jinst3r/Twitter/blob/master/walkthroughvideo3.gif)
 
