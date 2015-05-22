@@ -15,6 +15,18 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     var refreshControl: UIRefreshControl!
     
+    func favorite(tweetCell: TweetCell) {
+        TwitterClient.sharedInstance.favoriteTheTweet(tweetCell.tweet!.id!, params: nil) { (error) -> () in
+            tweetCell.favoriteButton.image = UIImage(named: "favorite_on")
+            let tweetInstance = tweetCell.tweet! as Tweet
+            if tweetInstance.favoriteCount! > 0 {
+                tweetCell.favoriteCountLabel.text = "\(tweetInstance.favoriteCount! + 1)"
+            } else {
+                tweetCell.favoriteCountLabel.text = "1"
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
