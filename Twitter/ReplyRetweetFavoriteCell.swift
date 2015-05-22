@@ -23,11 +23,11 @@ class ReplyRetweetFavoriteCell: UITableViewCell {
             retweeted = tweetReplyRetweetFavorite.retweeted
             favorited = tweetReplyRetweetFavorite.favorited
         
-            if retweeted == true {
+            if tweetReplyRetweetFavorite.retweeted == true {
             retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
             }
             
-            if favorited == true {
+            if tweetReplyRetweetFavorite.favorited == true {
             favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
             }
 
@@ -38,28 +38,38 @@ class ReplyRetweetFavoriteCell: UITableViewCell {
     }
     
     @IBAction func retweetButtonTapped(sender: AnyObject) {
-        if retweeted == false {
+        if tweetReplyRetweetFavorite.retweeted! == false {
             TwitterClient.sharedInstance.retweetTheTweet(tweetReplyRetweetFavorite!.id!, params: nil) { (error) -> () in
                 self.retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
+                self.retweetButton.alpha = 1.0
             }
-        } else {
-            // unretweet
+        }
+        if tweetReplyRetweetFavorite.retweeted! == true {
+            TwitterClient.sharedInstance.unretweetTheTweet(tweetReplyRetweetFavorite!.id!, params: nil) { (error) -> () in
+                self.retweetButton.setImage(UIImage(named: "retweet"), forState: .Normal)
+                self.retweetButton.alpha = 0.5
+            }
         }
     }
     
     @IBAction func favoriteButtonTapped(sender: AnyObject) {
-        if favorited == false {
+        if tweetReplyRetweetFavorite.favorited! == false {
             TwitterClient.sharedInstance.favoriteTheTweet(tweetReplyRetweetFavorite!.id!, params: nil) { (error) -> () in
                 self.favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
+                self.favoriteButton.alpha = 1.0
             }
-        } else {
-            // unfavorite
+        } else if tweetReplyRetweetFavorite.favorited! == true {
+            TwitterClient.sharedInstance.unfavoriteTheTweet(tweetReplyRetweetFavorite!.id!, params: nil) { (error) -> () in
+                self.favoriteButton.setImage(UIImage(named: "favorite"), forState: .Normal)
+                self.favoriteButton.alpha = 0.5
+            }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        println(retweeted)
+        println(favorited)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

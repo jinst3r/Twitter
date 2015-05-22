@@ -21,8 +21,12 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
 
-    let tapRec = UITapGestureRecognizer()
-
+    // hack until i can figure out persistence or delegate
+    var retweetBoolCell: Bool?
+    var favoriteBoolCell: Bool?
+    var retweetCount: Int?
+    var favoriteCount: Int?
+    
     var tweet: Tweet! {
         didSet {
             tweetImageView.setImageWithURL(NSURL(string: "\(tweet.user!.profileImageUrl!)"))
@@ -30,20 +34,21 @@ class TweetCell: UITableViewCell {
             tweetHandleLabel.text = "@\(tweet.user!.screenname!)"
             tweetTimeLabel.text = tweet.createdAtStringUsable!
             tweetContentLabel.text = tweet.text!
-            retweetCountLabel.text = String(tweet.retweetCount!)
-            favoriteCountLabel.text = String(tweet.favoriteCount!)
-            retweeted = tweet.retweeted
-            favorited = tweet.favorited
-            if retweeted == true {
+            retweetCount = tweet.retweetCount!
+            favoriteCount = tweet.favoriteCount!
+            retweetCountLabel.text = String(retweetCount!)
+            favoriteCountLabel.text = String(favoriteCount!)
+            retweetBoolCell = tweet.retweeted
+            favoriteBoolCell = tweet.favorited
+            
+            if retweetBoolCell == true {
                 retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
-                retweetButton.alpha = 1.0
-                retweetCountLabel.textColor = UIColor(red: 92.0/255.0, green: 145.0/255.0, blue: 59.0/255.0, alpha: 1.0)
             }
-            if favorited == true {
+            
+            if favoriteBoolCell == true {
                 favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
-                favoriteButton.alpha = 1.0
-                favoriteCountLabel.textColor = UIColor(red: 255.0/255.0, green: 172.0/255.0, blue: 51.0/255.0, alpha: 1.0)
             }
+
         }
     }
     
@@ -51,7 +56,7 @@ class TweetCell: UITableViewCell {
         super.awakeFromNib()
         tweetImageView.layer.cornerRadius = 4
         tweetImageView.clipsToBounds = true
-        
+
         dispatch_async(dispatch_get_main_queue()) {
             self.tweetContentLabel.preferredMaxLayoutWidth = self.tweetContentLabel.frame.size.width
         }
@@ -63,36 +68,94 @@ class TweetCell: UITableViewCell {
         self.tweetContentLabel.preferredMaxLayoutWidth = self.tweetContentLabel.frame.size.width
     }
     
+    //reply
     @IBAction func replyShadowButton(sender: AnyObject) {
-        println("finally YES")
     }
+    
+    //retweet
     @IBAction func retweetShadowButton(sender: AnyObject) {
-        if retweeted == false {
+        println("retweet button pressed")
+        if retweetBoolCell! == false {
+            println("attempting to retweet")
+            println(retweetBoolCell)
             TwitterClient.sharedInstance.retweetTheTweet(tweet.id!, params: nil) { (error) -> () in
-                self.retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
-                self.retweetButton.alpha = 1.0
-                self.retweetCountLabel.textColor = UIColor(red: 92.0/255.0, green: 145.0/255.0, blue: 59.0/255.0, alpha: 1.0)
+                self.retweetLabelOn()
+                self.retweetBoolCell = true
+                self.retweetCount! += 1
+                self.retweetCountLabel.text = String(self.retweetCount!)
+            }
+        } else if retweetBoolCell! == true {
+            println("attempting to UNretweet")
+            println(retweetBoolCell)
+            TwitterClient.sharedInstance.unretweetTheTweet(tweet.id!, params: nil) { (error) -> () in
+                self.retweetLabelOff()
+                self.retweetBoolCell = false
+                self.retweetCount! -= 1
+                self.retweetCountLabel.text = String(self.retweetCount!)
             }
         } else {
-            // unretweet
+            println("what's going on?")
+            println(retweeted)
         }
     }
+    
+    // favorite
     @IBAction func favoriteShadowButton(sender: AnyObject) {
-        if favorited == false {
+        println(favoriteBoolCell!)
+        
+        if favoriteBoolCell! == false {
+            println("attempting to favorite")
+            println(favoriteBoolCell)
             TwitterClient.sharedInstance.favoriteTheTweet(tweet.id!, params: nil) { (error) -> () in
-                self.favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
-                self.favoriteButton.alpha = 1.0
-                self.favoriteCountLabel.textColor = UIColor(red: 255.0/255.0, green: 172.0/255.0, blue: 51.0/255.0, alpha: 1.0)
+                self.favoriteLabelOn()
+                self.favoriteBoolCell = true
+                self.favoriteCount! += 1
+                self.favoriteCountLabel.text = String(self.favoriteCount!)
+                return
+            }
+        } else if favoriteBoolCell! == true {
+            println("attempting to UNfavorite")
+            println(favoriteBoolCell)
+            TwitterClient.sharedInstance.unfavoriteTheTweet(tweet.id!, params: nil) { (error) -> () in
+                self.favoriteLabelOff()
+                self.favoriteBoolCell = false
+                self.favoriteCount! -= 1
+                self.favoriteCountLabel.text = String(self.favoriteCount!)
+                return
             }
         } else {
-            // unretweet
+            println("what's going on?")
+            println(favoriteBoolCell)
         }
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    
+    // color labels
+    func retweetLabelOn() {
+        self.retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
+        self.retweetButton.alpha = 1.0
+        self.retweetCountLabel.textColor = UIColor(red: 92.0/255.0, green: 145.0/255.0, blue: 59.0/255.0, alpha: 1.0)
+    }
+    
+    func retweetLabelOff() {
+        self.retweetButton.setImage(UIImage(named: "retweet"), forState: .Normal)
+        self.retweetButton.alpha = 0.5
+        self.retweetCountLabel.textColor = UIColor.lightGrayColor()
+    }
+    
+    func favoriteLabelOn() {
+        self.favoriteButton.setImage(UIImage(named: "favorite_on"), forState: .Normal)
+        self.favoriteButton.alpha = 1.0
+        self.favoriteCountLabel.textColor = UIColor(red: 255.0/255.0, green: 172.0/255.0, blue: 51.0/255.0, alpha: 1.0)
+    }
+    
+    func favoriteLabelOff() {
+        self.favoriteButton.setImage(UIImage(named: "favorite"), forState: .Normal)
+        self.favoriteButton.alpha = 0.5
+        self.favoriteCountLabel.textColor = UIColor.lightGrayColor()
+    }
 }

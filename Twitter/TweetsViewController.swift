@@ -32,15 +32,12 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex:0)
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        self.tableView.reloadData()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -52,6 +49,20 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         } else {
             println("try again dummy")
         }
+        
+        
+        if cell.tweet.retweeted == true {
+            cell.retweetLabelOn()
+        } else {
+            cell.retweetLabelOff()
+        }
+        
+        if cell.tweet.favorited == true {
+            cell.favoriteLabelOn()
+        } else {
+            cell.favoriteLabelOff()
+        }
+        
         
         // gets rid of white margin on the left hand side
         if (cell.respondsToSelector(Selector("setPreservesSuperviewLayoutMargins:"))){
@@ -86,6 +97,11 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             if let indexPath = tableView.indexPathForCell(cell) {
                 let tweetDetailViewController = segue.destinationViewController as! TweetDetailViewController
                 tweetDetailViewController.tweet = tweets?[indexPath.row]
+                // hack for now
+                tweetDetailViewController.tweet?.retweeted = cell.retweetBoolCell
+                tweetDetailViewController.tweet?.favorited = cell.favoriteBoolCell
+                tweetDetailViewController.tweet?.retweetCount! = cell.retweetCount!
+                tweetDetailViewController.tweet?.favoriteCount! = cell.favoriteCount!
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }
             
