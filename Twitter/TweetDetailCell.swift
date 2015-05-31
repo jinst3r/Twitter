@@ -10,26 +10,39 @@ import UIKit
 
 class TweetDetailCell: UITableViewCell {
 
+    //get rid of this
     @IBOutlet weak var tweetDetailImageView: UIImageView!
+
     @IBOutlet weak var tweetDetailNameLabel: UILabel!
     @IBOutlet weak var tweetDetailHandleLabel: UILabel!
     @IBOutlet weak var tweetDetailContentLabel: UILabel!
     @IBOutlet weak var tweetDetailTimeLabel: UILabel!
+    @IBOutlet weak var tweetDetailImageButton: UIButton!
     
     var tweetDetail: Tweet! {
         didSet {
+            
+            //get rid of this
             tweetDetailImageView.setImageWithURL(NSURL(string: "\(tweetDetail.user!.profileImageUrl!)"))
+            
             tweetDetailNameLabel.text = tweetDetail.user!.name
             tweetDetailHandleLabel.text = "@\(tweetDetail.user!.screenname!)"
             tweetDetailTimeLabel.text = tweetDetail.createdAtStringUsable!
             tweetDetailContentLabel.text = tweetDetail.text!
+            tweetDetailImageButton.setImage(UIImage(data: NSData(contentsOfURL: NSURL(string: "\(tweetDetail.user!.profileImageUrl!)")!)!), forState: .Normal)
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        //get rid of this
         tweetDetailImageView.layer.cornerRadius = 4
         tweetDetailImageView.clipsToBounds = true
+        
+        tweetDetailImageButton?.layer.masksToBounds = true
+        tweetDetailImageButton?.layer.cornerRadius = 8.0
+        tweetDetailImageButton?.clipsToBounds = true
         
         dispatch_async(dispatch_get_main_queue()) {
             self.tweetDetailContentLabel.preferredMaxLayoutWidth = self.tweetDetailContentLabel.frame.size.width
@@ -47,4 +60,9 @@ class TweetDetailCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+    @IBAction func tweetDetailImageButtonTapped(sender: UIButton) {
+        println("tapped dat")
+    }
+    
+    
 }

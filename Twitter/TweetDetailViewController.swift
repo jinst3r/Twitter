@@ -53,6 +53,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
         } else if indexPath.section == 1 {
             var cell = tableView.dequeueReusableCellWithIdentifier("RetweetAndFavoriteCell", forIndexPath: indexPath) as! RetweetAndFavoriteCell
             // cleanUpMargin()
+            println("this works, why don't you?")
             cell.tweetRetweetandFavorite = tweet
             return cell
         } else if indexPath.section == 2 {
@@ -77,10 +78,22 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
             var replyUser = tweet?.user!.screenname!
             let tweetComposeViewController = segue.destinationViewController.topViewController as! TweetComposeViewController
             tweetComposeViewController.replyTweetTo = "@\(replyUser!)"
+        } else if segue.identifier == "tweetDetailToProfileViewSegue" {
+            let button = sender as! UIButton
+            let view = button.superview!
+            let cell = view.superview as! TweetDetailCell
+            if let indexPath = tableView.indexPathForCell(cell) {
+                let profilePageViewController = segue.destinationViewController as! ProfilePageViewController
+                profilePageViewController.tweet = tweet
+//                profilePageViewController.tweet?.retweeted = cell.retweetBoolCell
+//                profilePageViewController.tweet?.favorited = cell.favoriteBoolCell
+//                profilePageViewController.tweet?.retweetCount! = cell.retweetCount!
+//                profilePageViewController.tweet?.favoriteCount! = cell.favoriteCount!
+//                tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }
-            
+        }
     }
-    
+
 
     
     func cleanUpMargin() {

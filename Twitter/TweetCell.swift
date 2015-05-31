@@ -10,7 +10,7 @@ import UIKit
 
 class TweetCell: UITableViewCell {
   
-    @IBOutlet weak var tweetImageView: UIImageView!
+
     @IBOutlet weak var tweetNameLabel: UILabel!
     @IBOutlet weak var tweetHandleLabel: UILabel!
     @IBOutlet weak var tweetTimeLabel: UILabel!
@@ -20,6 +20,8 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var replyButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var tweetImageButton: UIButton!
+
 
     // hack until i can figure out persistence or delegate
     var retweetBoolCell: Bool?
@@ -29,7 +31,6 @@ class TweetCell: UITableViewCell {
     
     var tweet: Tweet! {
         didSet {
-            tweetImageView.setImageWithURL(NSURL(string: "\(tweet.user!.profileImageUrl!)"))
             tweetNameLabel.text = tweet.user!.name
             tweetHandleLabel.text = "@\(tweet.user!.screenname!)"
             tweetTimeLabel.text = tweet.createdAtStringUsable!
@@ -40,6 +41,7 @@ class TweetCell: UITableViewCell {
             favoriteCountLabel.text = String(favoriteCount!)
             retweetBoolCell = tweet.retweeted
             favoriteBoolCell = tweet.favorited
+            tweetImageButton?.setImage(UIImage(data: NSData(contentsOfURL: NSURL(string: "\(tweet.user!.profileImageUrl!)")!)!), forState: .Normal)
             
             if retweetBoolCell == true {
                 retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
@@ -54,9 +56,12 @@ class TweetCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        tweetImageView.layer.cornerRadius = 4
-        tweetImageView.clipsToBounds = true
+        tweetImageButton?.layer.masksToBounds = true
+        tweetImageButton?.layer.cornerRadius = 7.0
+        tweetImageButton?.clipsToBounds = true
 
+        
+        
         dispatch_async(dispatch_get_main_queue()) {
             self.tweetContentLabel.preferredMaxLayoutWidth = self.tweetContentLabel.frame.size.width
         }
@@ -127,6 +132,10 @@ class TweetCell: UITableViewCell {
             println("what's going on?")
             println(favoriteBoolCell)
         }
+    }
+    
+    @IBAction func imageButtonTapped(sender: UIButton) {
+        println("tapped dat")
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

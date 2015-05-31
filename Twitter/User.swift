@@ -18,6 +18,10 @@ class User: NSObject {
     var screenname: String?
     var profileImageUrl: String?
     var tagline: String?
+    var location: String?
+    var followersCount: String?
+    var followingsCount: String?
+    var tweetsCount: Int?
     var dictionary: NSDictionary
     
     // serialize
@@ -28,6 +32,10 @@ class User: NSObject {
         screenname = dictionary["screen_name"] as? String
         profileImageUrl = dictionary["profile_image_url"] as? String
         tagline = dictionary["description"] as? String
+        location = dictionary["location"] as? String
+        followersCount = dictionary["followers_count"] as? String
+        followingsCount = dictionary["friends_count"] as? String
+        tweetsCount = dictionary["statuses_count"] as? Int
     }
 
     func logout() {
