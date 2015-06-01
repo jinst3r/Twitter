@@ -109,9 +109,10 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
-
+        println("got login request here")
         // Fetch request token & redirect to authorization page
         TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
+        println("got login request here 2")
         TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "cptwitterdemo://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) -> Void in
             println("Got the request token")
             var authURL = NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
@@ -122,7 +123,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
             println("Failed to get request token")
             self.loginCompletion?(user: nil, error: error)
         }
-
+        println("got login request here 3")
     }
     
     func openURL(url: NSURL) {

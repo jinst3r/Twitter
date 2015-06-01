@@ -22,11 +22,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if User.currentUser != nil {
             // go to the logged in screen
             println("Current user detected: \(User.currentUser?.name)")
-            var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as! UIViewController
-            let navigationController = UINavigationController(rootViewController: vc)
-            window?.rootViewController = navigationController
+//            var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as! UIViewController
+//            let navigationController = UINavigationController(rootViewController: vc)
+//            window?.rootViewController = navigationController
+
+            // from @frosty
+            window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            let containerViewController = ContainerViewController()
+            window?.rootViewController = containerViewController
+            window?.makeKeyAndVisible()
+
         }
-        
         
         let themeColor = UIColor(red: 85.0/255.0, green: 172.0/255.0, blue: 238.0/255.0, alpha: 1.0)
         
