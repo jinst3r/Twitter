@@ -6,7 +6,7 @@ Time spent: `21`
 
 Hamburger menu
 - [x] Dragging anywhere in the view should reveal the menu.
-- [x] (not mentions view since it's deprecated on mobile). The menu should include links to your profile, the home timeline, and the mentions view.
+- [x] *Did not complete mentions view* The menu should include links to your profile, the home timeline, and the mentions view.
 - [x] The menu can look similar to the LinkedIn menu below or feel free to take liberty with the UI.
 - [x] Optional: made from scratch, not using external libraries
 
