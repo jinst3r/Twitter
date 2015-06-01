@@ -19,17 +19,41 @@ class ProfileCell: UITableViewCell {
     @IBOutlet weak var followersCountLabel: UILabel!
     @IBOutlet weak var tweetCountLabel: UILabel!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
     var tweet: Tweet! {
         didSet {
             profileImageView.setImageWithURL(NSURL(string: "\(tweet.user!.profileImageUrl!)"))
+            if tweet.user!.backgroundImageUrl != nil {
+                backgroundImageView.setImageWithURL(NSURL(string: "\(tweet.user!.backgroundImageUrl!)"))
+            }
             userNameLabel.text = tweet.user!.name
             userHandleLabel.text = "@\(tweet.user!.screenname!)"
             userDescriptionLabel.text = tweet.user!.tagline
             userLocationLabel.text = tweet.user!.location
-            followingCountLabel.text = tweet.user!.followingsCount
-            followersCountLabel.text = tweet.user!.followersCount
-            tweetCountLabel.text = String("\(tweet.user!.tweetsCount!)")
+            
+            if (tweet.user!.followingsCount! >= 1000000) {
+                followingCountLabel.text = String("\(tweet.user!.followingsCount!/1000000)M")
+            } else if (tweet.user!.followingsCount! >= 1000) {
+                followingCountLabel.text = String("\(tweet.user!.followingsCount!/1000)K")
+            } else {
+                followingCountLabel.text = String("\(tweet.user!.followingsCount!)")
+                println("\(tweet.user!.followingsCount!)")
+            }
+            if (tweet.user!.followersCount! >= 1000000) {
+                followersCountLabel.text = String("\(tweet.user!.followersCount!/1000000)M")
+            } else if (tweet.user!.followersCount! >= 1000) {
+                followersCountLabel.text = String("\(tweet.user!.followersCount!/1000)K")
+            } else {
+                followersCountLabel.text = String("\(tweet.user!.followersCount!)")
+            }
+            if (tweet.user!.tweetsCount! >= 1000000) {
+                tweetCountLabel.text = String("\(tweet.user!.tweetsCount!/1000000)M")
+            } else if (tweet.user!.tweetsCount! >= 1000) {
+                tweetCountLabel.text = String("\(tweet.user!.tweetsCount!/1000)K")
+            } else {
+                tweetCountLabel.text = String("\(tweet.user!.tweetsCount!)")
+            }
         }
     }
     

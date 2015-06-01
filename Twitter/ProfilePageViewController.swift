@@ -12,6 +12,9 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
 
     var tweet: Tweet?
     var tweets: [Tweet]?
+    var hamburger: Bool?
+    var screenname: String?
+    var currUser: User?
     // pass in user screenname to load
     
     
@@ -26,7 +29,15 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 200
 
-        TwitterClient.sharedInstance.userTimeline(tweet!.user!.screenname!, completion: { (tweets, error) -> () in
+        if hamburger == true {
+           println("hamburger true")
+           screenname = currUser?.screenname
+        } else {
+           println("hamburger false")
+           screenname = tweet!.user!.screenname!
+        }
+        
+        TwitterClient.sharedInstance.userTimeline(screenname!, completion: { (tweets, error) -> () in
             self.tweets = tweets
             println("user timeline called")
             println("here it is called \(self.tweets)")
@@ -46,6 +57,18 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             var cell = tableView.dequeueReusableCellWithIdentifier("ProfileCell", forIndexPath: indexPath) as! ProfileCell
             cell.tweet = tweets![0]
             println("profilecell tweet \(cell.tweet)")
+            
+            // gets rid of white margin on the left hand side
+            if (cell.respondsToSelector(Selector("setPreservesSuperviewLayoutMargins:"))){
+                cell.preservesSuperviewLayoutMargins = false
+            }
+            if (cell.respondsToSelector(Selector("setSeparatorInset:"))){
+                cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0)
+            }
+            if (cell.respondsToSelector(Selector("setLayoutMargins:"))){
+                cell.layoutMargins = UIEdgeInsetsZero
+            }
+
             return cell
         } else if indexPath.section == 1 {
             var cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
@@ -54,6 +77,30 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
             cell.tweet = tweets![indexPath.row]
             println("\(cell.tweetImageButton)")
             println("tweetcell tweet \(cell.tweet)")
+            
+            if cell.tweet.retweeted == true {
+                cell.retweetLabelOn()
+            } else {
+                cell.retweetLabelOff()
+            }
+            
+            if cell.tweet.favorited == true {
+                cell.favoriteLabelOn()
+            } else {
+                cell.favoriteLabelOff()
+            }
+            
+            // gets rid of white margin on the left hand side
+            if (cell.respondsToSelector(Selector("setPreservesSuperviewLayoutMargins:"))){
+                cell.preservesSuperviewLayoutMargins = false
+            }
+            if (cell.respondsToSelector(Selector("setSeparatorInset:"))){
+                cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0)
+            }
+            if (cell.respondsToSelector(Selector("setLayoutMargins:"))){
+                cell.layoutMargins = UIEdgeInsetsZero
+            }
+
             return cell
         } else {
             println("anything here?")            
@@ -93,4 +140,14 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
         
         }
     }
+    
+    func onRefresh() {
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
+            self.tweets = tweets
+            self.tableView.reloadData()
+        })
+        self.refreshControl.endRefreshing()
+    }
+    
+
 }

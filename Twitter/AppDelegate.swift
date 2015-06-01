@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = containerViewController
             window?.makeKeyAndVisible()
 
+        } else {
+            println("there's no current user")
         }
         
         let themeColor = UIColor(red: 85.0/255.0, green: 172.0/255.0, blue: 238.0/255.0, alpha: 1.0)

@@ -19,13 +19,12 @@ class ContainerViewController: UIViewController {
     var centerViewController: TweetsViewController!
     
     // for shadow
-    var currentState: SlideOutState = .Collapsed
-    //        {
-    //        didSet {
-    //            let shouldShowShadow = (currentState != .Collapsed)
-    //            showShadowForCenterViewController(shouldShowShadow)
-    //        }
-    //    }
+    var currentState: SlideOutState = .Collapsed {
+        didSet {
+            let shouldShowShadow = currentState != .Collapsed
+            showShadowForCenterViewController(shouldShowShadow)
+        }
+    }
     var sideMenuViewController: SideMenuViewController?
     let centerPanelExpandedOffset: CGFloat = 60
 
@@ -50,7 +49,7 @@ class ContainerViewController: UIViewController {
     }
 }
 
-extension ContainerViewController: CenterViewControllerDelegate {
+extension ContainerViewController: CenterViewControllerDelegate, SideMenuViewControllerDelegate {
     func addSideMenuViewController() {
         if (sideMenuViewController == nil) {
             sideMenuViewController = UIStoryboard.sideMenuViewController()
@@ -60,11 +59,9 @@ extension ContainerViewController: CenterViewControllerDelegate {
     
     // check this
     func addChildSidePanelController(smvc: SideMenuViewController) {
-        //        view.insertSubview(smvc.view, atIndex: 0)
         view.insertSubview(smvc.view, atIndex: 0)
         addChildViewController(smvc)
         smvc.didMoveToParentViewController(self)
-//        smvc.view.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.8)
         println("addchildsidepanelcontroller")
     }
     
@@ -80,10 +77,10 @@ extension ContainerViewController: CenterViewControllerDelegate {
                 self.currentState = .Collapsed
                 self.sideMenuViewController?.view.removeFromSuperview()
                 self.sideMenuViewController = nil;
+                println("collapsing")
             }
         }
     }
-    
     
     func animateCenterPanelXPosition(#targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
@@ -91,14 +88,13 @@ extension ContainerViewController: CenterViewControllerDelegate {
             }, completion: completion)
     }
     
-    
-    //    func showShadowForCenterViewController(shouldShowShadow: Bool) {
-    //        if (shouldShowShadow){
-    //            self.view.layer.shadowOpacity = 0.8
-    //        } else {
-    //            self.view.layer.shadowOpacity = 0.0
-    //        }
-    //    }
+    func showShadowForCenterViewController(shouldShowShadow: Bool) {
+        if (shouldShowShadow){
+            self.view.layer.shadowOpacity = 0.8
+        } else {
+            self.view.layer.shadowOpacity = 0.0
+        }
+    }
 }
 
 extension ContainerViewController: UIGestureRecognizerDelegate {
@@ -112,8 +108,7 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
                     addSideMenuViewController()
                     println("adding side menu view controller")
                 }
-                
-                //                showShadowForCenterViewController(true)
+                showShadowForCenterViewController(true)
             }
         case .Changed:
             recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
@@ -134,7 +129,7 @@ private extension UIStoryboard {
     
     class func sideMenuViewController() -> SideMenuViewController? {
         println("sidemenuthinginstatiated")
-        return mainStoryboard().instantiateViewControllerWithIdentifier("justAnotherVC") as? SideMenuViewController
+        return mainStoryboard().instantiateViewControllerWithIdentifier("SideMenuViewController") as? SideMenuViewController
     }
     
     class func centerViewController() -> TweetsViewController? {

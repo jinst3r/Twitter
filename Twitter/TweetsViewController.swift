@@ -128,7 +128,8 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             let view = button.superview!
             let cell = view.superview as! TweetCell
             if let indexPath = tableView.indexPathForCell(cell) {
-                let profilePageViewController = segue.destinationViewController as! ProfilePageViewController
+                let navigationController = segue.destinationViewController as! UINavigationController
+                var profilePageViewController = navigationController.topViewController as! ProfilePageViewController
                 profilePageViewController.tweet = tweets?[indexPath.row]
                 profilePageViewController.tweet?.retweeted = cell.retweetBoolCell
                 profilePageViewController.tweet?.favorited = cell.favoriteBoolCell

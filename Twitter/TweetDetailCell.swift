@@ -10,9 +10,6 @@ import UIKit
 
 class TweetDetailCell: UITableViewCell {
 
-    //get rid of this
-    @IBOutlet weak var tweetDetailImageView: UIImageView!
-
     @IBOutlet weak var tweetDetailNameLabel: UILabel!
     @IBOutlet weak var tweetDetailHandleLabel: UILabel!
     @IBOutlet weak var tweetDetailContentLabel: UILabel!
@@ -21,9 +18,6 @@ class TweetDetailCell: UITableViewCell {
     
     var tweetDetail: Tweet! {
         didSet {
-            
-            //get rid of this
-            tweetDetailImageView.setImageWithURL(NSURL(string: "\(tweetDetail.user!.profileImageUrl!)"))
             
             tweetDetailNameLabel.text = tweetDetail.user!.name
             tweetDetailHandleLabel.text = "@\(tweetDetail.user!.screenname!)"
@@ -35,10 +29,6 @@ class TweetDetailCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        //get rid of this
-        tweetDetailImageView.layer.cornerRadius = 4
-        tweetDetailImageView.clipsToBounds = true
         
         tweetDetailImageButton?.layer.masksToBounds = true
         tweetDetailImageButton?.layer.cornerRadius = 8.0

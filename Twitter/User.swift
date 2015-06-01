@@ -19,9 +19,10 @@ class User: NSObject {
     var profileImageUrl: String?
     var tagline: String?
     var location: String?
-    var followersCount: String?
-    var followingsCount: String?
+    var followersCount: Int?
+    var followingsCount: Int?
     var tweetsCount: Int?
+    var backgroundImageUrl: String?
     var dictionary: NSDictionary
     
     // serialize
@@ -31,10 +32,11 @@ class User: NSObject {
         name = dictionary["name"] as? String
         screenname = dictionary["screen_name"] as? String
         profileImageUrl = dictionary["profile_image_url"] as? String
+        backgroundImageUrl = dictionary["profile_banner_url"] as? String
         tagline = dictionary["description"] as? String
         location = dictionary["location"] as? String
-        followersCount = dictionary["followers_count"] as? String
-        followingsCount = dictionary["friends_count"] as? String
+        followersCount = dictionary["followers_count"] as? Int
+        followingsCount = dictionary["friends_count"] as? Int
         tweetsCount = dictionary["statuses_count"] as? Int
     }
 
