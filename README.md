@@ -4,6 +4,8 @@ This is the redux
 
 Time spent: `21`
 
+![Video Walkthrough] (https://github.com/jon-choi/Twitter/blob/redux/walkthroughvideo7.gif)
+
 Hamburger menu
 - [x] Dragging anywhere in the view should reveal the menu.
 - [x] *Did not complete mentions view* The menu should include links to your profile, the home timeline, and the mentions view.
