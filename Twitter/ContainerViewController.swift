@@ -32,7 +32,7 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("container view in the house")
+        print("container view in the house")
         
         centerViewController = UIStoryboard.centerViewController()
         centerViewController.delegate = self
@@ -62,27 +62,27 @@ extension ContainerViewController: CenterViewControllerDelegate, SideMenuViewCon
         view.insertSubview(smvc.view, atIndex: 0)
         addChildViewController(smvc)
         smvc.didMoveToParentViewController(self)
-        println("addchildsidepanelcontroller")
+        print("addchildsidepanelcontroller")
     }
     
     
-    func animateSideMenu(#shouldExpand: Bool) {
+    func animateSideMenu(shouldExpand shouldExpand: Bool) {
         if (shouldExpand) {
             currentState = .Expanded
             
             animateCenterPanelXPosition(targetPosition: CGRectGetWidth(centerNavigationController.view.frame) - centerPanelExpandedOffset)
-            println("animating")
+            print("animating")
         } else {
             animateCenterPanelXPosition(targetPosition: 0) { finished in
                 self.currentState = .Collapsed
                 self.sideMenuViewController?.view.removeFromSuperview()
                 self.sideMenuViewController = nil;
-                println("collapsing")
+                print("collapsing")
             }
         }
     }
     
-    func animateCenterPanelXPosition(#targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
+    func animateCenterPanelXPosition(targetPosition targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
             self.centerNavigationController.view.frame.origin.x = targetPosition
             }, completion: completion)
@@ -100,13 +100,13 @@ extension ContainerViewController: CenterViewControllerDelegate, SideMenuViewCon
 extension ContainerViewController: UIGestureRecognizerDelegate {
     func handlePanGesture(recognizer: UIPanGestureRecognizer) {
         let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
-        println("panning")
+        print("panning")
         switch(recognizer.state) {
         case .Began:
             if (currentState == .Collapsed) {
                 if (gestureIsDraggingFromLeftToRight) {
                     addSideMenuViewController()
-                    println("adding side menu view controller")
+                    print("adding side menu view controller")
                 }
                 showShadowForCenterViewController(true)
             }
@@ -128,7 +128,7 @@ private extension UIStoryboard {
     class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()) }
     
     class func sideMenuViewController() -> SideMenuViewController? {
-        println("sidemenuthinginstatiated")
+        print("sidemenuthinginstatiated")
         return mainStoryboard().instantiateViewControllerWithIdentifier("SideMenuViewController") as? SideMenuViewController
     }
     

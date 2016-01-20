@@ -17,7 +17,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("\(tweet?.user?.name)")
+        print("\(tweet?.user?.name)")
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -25,7 +25,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.estimatedRowHeight = 200
         
         // hide empty cells and set a background color
-        var hiddenView = UIView(frame: CGRectZero)
+        let hiddenView = UIView(frame: CGRectZero)
         tableView.tableFooterView = hiddenView
         tableView.tableFooterView!.hidden = true
         tableView.backgroundColor = UIColor(red: 245.0/255.0, green: 248.0/255.0, blue: 250.0/255.0, alpha: 1.0)
@@ -42,22 +42,22 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell:UITableViewCell!
+        let cell = UITableViewCell()
 
         if indexPath.section == 0 {
-            var cell = tableView.dequeueReusableCellWithIdentifier("TweetDetailCell", forIndexPath: indexPath) as! TweetDetailCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("TweetDetailCell", forIndexPath: indexPath) as! TweetDetailCell
             // cleanUpMargin()
-            println("\(tweet?.user?.name) here too")
+            print("\(tweet?.user?.name) here too")
             cell.tweetDetail = tweet
             return cell
         } else if indexPath.section == 1 {
-            var cell = tableView.dequeueReusableCellWithIdentifier("RetweetAndFavoriteCell", forIndexPath: indexPath) as! RetweetAndFavoriteCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("RetweetAndFavoriteCell", forIndexPath: indexPath) as! RetweetAndFavoriteCell
             // cleanUpMargin()
-            println("this works, why don't you?")
+            print("this works, why don't you?")
             cell.tweetRetweetandFavorite = tweet
             return cell
         } else if indexPath.section == 2 {
-            var cell = tableView.dequeueReusableCellWithIdentifier("ReplyRetweetFavoriteCell", forIndexPath: indexPath) as! ReplyRetweetFavoriteCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("ReplyRetweetFavoriteCell", forIndexPath: indexPath) as! ReplyRetweetFavoriteCell
             // cleanUpMargin()
             cell.tweetReplyRetweetFavorite = tweet
             return cell
@@ -75,8 +75,8 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "replySegue" {
             
-            var replyUser = tweet?.user!.screenname!
-            let tweetComposeViewController = segue.destinationViewController.topViewController as! TweetComposeViewController
+            let replyUser = tweet?.user!.screenname!
+            let tweetComposeViewController = (segue.destinationViewController as! UINavigationController).topViewController as! TweetComposeViewController
             tweetComposeViewController.replyTweetTo = "@\(replyUser!)"
         } else if segue.identifier == "tweetDetailToProfileViewSegue" {
             let button = sender as! UIButton
@@ -98,7 +98,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
     
     func cleanUpMargin() {
-        var cell:UITableViewCell!
+        let cell = UITableViewCell()
         
         if (cell.respondsToSelector(Selector("setPreservesSuperviewLayoutMargins:"))){
             cell.preservesSuperviewLayoutMargins = false

@@ -30,17 +30,17 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.estimatedRowHeight = 200
 
         if hamburger == true {
-           println("hamburger true")
+           print("hamburger true")
            screenname = currUser?.screenname
         } else {
-           println("hamburger false")
+           print("hamburger false")
            screenname = tweet!.user!.screenname!
         }
         
         TwitterClient.sharedInstance.userTimeline(screenname!, completion: { (tweets, error) -> () in
             self.tweets = tweets
-            println("user timeline called")
-            println("here it is called \(self.tweets)")
+            print("user timeline called")
+            print("here it is called \(self.tweets)")
             self.tableView.reloadData()
         })
         // refresh control
@@ -51,12 +51,12 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        var cell: UITableViewCell!
+        let cell = UITableViewCell()
         
         if indexPath.section == 0 {
-            var cell = tableView.dequeueReusableCellWithIdentifier("ProfileCell", forIndexPath: indexPath) as! ProfileCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("ProfileCell", forIndexPath: indexPath) as! ProfileCell
             cell.tweet = tweets![0]
-            println("profilecell tweet \(cell.tweet)")
+            print("profilecell tweet \(cell.tweet)")
             
             // gets rid of white margin on the left hand side
             if (cell.respondsToSelector(Selector("setPreservesSuperviewLayoutMargins:"))){
@@ -71,12 +71,12 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
 
             return cell
         } else if indexPath.section == 1 {
-            var cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
             
-            println("tweetcell tweet tweet \(tweets![0])")
+            print("tweetcell tweet tweet \(tweets![0])")
             cell.tweet = tweets![indexPath.row]
-            println("\(cell.tweetImageButton)")
-            println("tweetcell tweet \(cell.tweet)")
+            print("\(cell.tweetImageButton)")
+            print("tweetcell tweet \(cell.tweet)")
             
             if cell.tweet.retweeted == true {
                 cell.retweetLabelOn()
@@ -103,17 +103,17 @@ class ProfilePageViewController: UIViewController, UITableViewDelegate, UITableV
 
             return cell
         } else {
-            println("anything here?")            
+            print("anything here?")            
             return cell
         }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 && tweets != nil {
-            println("one profile view row hereeeeee")
+            print("one profile view row hereeeeee")
             return 1
         } else if section == 1 && tweets != nil {
-            println("some tweet view rows hereeeeee")
+            print("some tweet view rows hereeeeee")
             return tweets!.count
         } else {
             return 0

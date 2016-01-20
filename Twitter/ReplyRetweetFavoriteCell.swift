@@ -68,8 +68,8 @@ class ReplyRetweetFavoriteCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        println(retweeted)
-        println(favorited)
+        print(retweeted)
+        print(favorited)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

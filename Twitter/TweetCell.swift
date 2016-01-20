@@ -79,10 +79,10 @@ class TweetCell: UITableViewCell {
     
     //retweet
     @IBAction func retweetShadowButton(sender: AnyObject) {
-        println("retweet button pressed")
+        print("retweet button pressed")
         if retweetBoolCell! == false {
-            println("attempting to retweet")
-            println(retweetBoolCell)
+            print("attempting to retweet")
+            print(retweetBoolCell)
             TwitterClient.sharedInstance.retweetTheTweet(tweet.id!, params: nil) { (error) -> () in
                 self.retweetLabelOn()
                 self.retweetBoolCell = true
@@ -90,8 +90,8 @@ class TweetCell: UITableViewCell {
                 self.retweetCountLabel.text = String(self.retweetCount!)
             }
         } else if retweetBoolCell! == true {
-            println("attempting to UNretweet")
-            println(retweetBoolCell)
+            print("attempting to UNretweet")
+            print(retweetBoolCell)
             TwitterClient.sharedInstance.unretweetTheTweet(tweet.id!, params: nil) { (error) -> () in
                 self.retweetLabelOff()
                 self.retweetBoolCell = false
@@ -99,18 +99,18 @@ class TweetCell: UITableViewCell {
                 self.retweetCountLabel.text = String(self.retweetCount!)
             }
         } else {
-            println("what's going on?")
-            println(retweeted)
+            print("what's going on?")
+            print(retweeted)
         }
     }
     
     // favorite
     @IBAction func favoriteShadowButton(sender: AnyObject) {
-        println(favoriteBoolCell!)
+        print(favoriteBoolCell!)
         
         if favoriteBoolCell! == false {
-            println("attempting to favorite")
-            println(favoriteBoolCell)
+            print("attempting to favorite")
+            print(favoriteBoolCell)
             TwitterClient.sharedInstance.favoriteTheTweet(tweet.id!, params: nil) { (error) -> () in
                 self.favoriteLabelOn()
                 self.favoriteBoolCell = true
@@ -119,8 +119,8 @@ class TweetCell: UITableViewCell {
                 return
             }
         } else if favoriteBoolCell! == true {
-            println("attempting to UNfavorite")
-            println(favoriteBoolCell)
+            print("attempting to UNfavorite")
+            print(favoriteBoolCell)
             TwitterClient.sharedInstance.unfavoriteTheTweet(tweet.id!, params: nil) { (error) -> () in
                 self.favoriteLabelOff()
                 self.favoriteBoolCell = false
@@ -129,13 +129,13 @@ class TweetCell: UITableViewCell {
                 return
             }
         } else {
-            println("what's going on?")
-            println(favoriteBoolCell)
+            print("what's going on?")
+            print(favoriteBoolCell)
         }
     }
     
     @IBAction func imageButtonTapped(sender: UIButton) {
-        println("tapped dat")
+        print("tapped dat")
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

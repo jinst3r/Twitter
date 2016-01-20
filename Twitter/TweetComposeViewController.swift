@@ -21,7 +21,7 @@ class TweetComposeViewController: UIViewController, UITextViewDelegate {
     @IBAction func postTweet(sender: AnyObject) {
         TwitterClient.sharedInstance.postNewTweet(textView.text, completion: { (error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
-            println("tweet attempted")
+            print("tweet attempted")
         })
  
     }

@@ -54,9 +54,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         
         if tweets != nil {
             cell.tweet = tweets![indexPath.row]
-            println("now it's workin")
+            print("now it's workin")
         } else {
-            println("try again dummy")
+            print("try again dummy")
         }
         
         
@@ -91,7 +91,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         if tweets != nil {
             return tweets!.count
         } else {
-            println("you suck/ number of rows didn't load hmm")
+            print("you suck/ number of rows didn't load hmm")
             return 0
         }
     }
@@ -121,7 +121,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             let indexPath = self.tableView.indexPathForCell(cell)
             var tweet = tweets![indexPath!.row]
             var replyUser = tweet.user!.screenname!
-            let tweetComposeViewController = segue.destinationViewController.topViewController as! TweetComposeViewController
+            let tweetComposeViewController = (segue.destinationViewController as! UINavigationController).topViewController as! TweetComposeViewController
             tweetComposeViewController.replyTweetTo = "@\(replyUser)"
         } else if segue.identifier == "profilePageSegue" {
             let button = sender as! UIButton

@@ -36,17 +36,17 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("accountSegueProfile", sender: self)
-            println("to profile")
+            print("to profile")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("preparing")
+        print("preparing", terminator: "")
         if segue.identifier == "accountSegueProfile" {
             let navController = segue.destinationViewController as! UINavigationController
-            var profileVC = navController.topViewController as! ProfilePageViewController
+            let profileVC = navController.topViewController as! ProfilePageViewController
             profileVC.hamburger = true
             profileVC.currUser = User.currentUser
-            print("prepared")
+            print("prepared", terminator: "")
         }
     }
 }

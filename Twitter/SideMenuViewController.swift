@@ -28,11 +28,11 @@ class SideMenuViewController: UIViewController , UITableViewDataSource, UITableV
         tableView.delegate = self
         
         tableView.reloadData()
-        println("i mean... it is loading")
+        print("i mean... it is loading")
     }
     
     override func viewDidAppear(animated: Bool) {
-        println("it did appear....!")
+        print("it did appear....!")
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -50,36 +50,36 @@ class SideMenuViewController: UIViewController , UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MenuCell", forIndexPath: indexPath) as! MenuCell
         cell.menuLabel.text = menuArray[indexPath.row]
-        println("cell \(indexPath.row) instantiated")
+        print("cell \(indexPath.row) instantiated")
 
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("requested")
+        print("requested")
         if indexPath.row == 0 {
             performSegueWithIdentifier("hamburgerProfile", sender: self)
-            println("to profile")
+            print("to profile")
         } else if indexPath.row == 1 {
             performSegueWithIdentifier("hamburgerContainer", sender: self)
-            println("to timeline")
+            print("to timeline")
         } else if indexPath.row == 3 {
             performSegueWithIdentifier("hamburgerAccount", sender: self)
-            println("to timeline")
+            print("to timeline")
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "hamburgerProfile" {
             let navigationController = segue.destinationViewController as! UINavigationController
-            var profilePageViewController = navigationController.topViewController as! ProfilePageViewController
+            let profilePageViewController = navigationController.topViewController as! ProfilePageViewController
             profilePageViewController.hamburger = true
             profilePageViewController.currUser = User.currentUser
-            println("\(User.currentUser)")
+            print("\(User.currentUser)")
         } else if segue.identifier == "hamburgerAccount" {
             let accountViewController = segue.destinationViewController as! AccountViewController
             accountViewController.currUser = User.currentUser
-            println("\(User.currentUser)")
+            print("\(User.currentUser)")
         }
     }
 }

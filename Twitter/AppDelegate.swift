@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if User.currentUser != nil {
             // go to the logged in screen
-            println("Current user detected: \(User.currentUser?.name)")
+            print("Current user detected: \(User.currentUser?.name)")
 //            var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as! UIViewController
 //            let navigationController = UINavigationController(rootViewController: vc)
 //            window?.rootViewController = navigationController
@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.makeKeyAndVisible()
 
         } else {
-            println("there's no current user")
+            print("there's no current user")
         }
         
         let themeColor = UIColor(red: 85.0/255.0, green: 172.0/255.0, blue: 238.0/255.0, alpha: 1.0)
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func userDidLogout () {
-        var vc = storyboard.instantiateInitialViewController() as! UIViewController
+        var vc = storyboard.instantiateInitialViewController()!
         window?.rootViewController = vc
     }
     
@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         TwitterClient.sharedInstance.openURL(url)
         return true
     }

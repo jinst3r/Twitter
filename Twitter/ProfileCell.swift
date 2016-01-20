@@ -38,7 +38,7 @@ class ProfileCell: UITableViewCell {
                 followingCountLabel.text = String("\(tweet.user!.followingsCount!/1000)K")
             } else {
                 followingCountLabel.text = String("\(tweet.user!.followingsCount!)")
-                println("\(tweet.user!.followingsCount!)")
+                print("\(tweet.user!.followingsCount!)")
             }
             if (tweet.user!.followersCount! >= 1000000) {
                 followersCountLabel.text = String("\(tweet.user!.followersCount!/1000000)M")

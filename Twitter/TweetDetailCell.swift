@@ -51,7 +51,7 @@ class TweetDetailCell: UITableViewCell {
     }
 
     @IBAction func tweetDetailImageButtonTapped(sender: UIButton) {
-        println("tapped dat")
+        print("tapped dat")
     }
     
     
