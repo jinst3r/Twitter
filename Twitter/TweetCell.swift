@@ -41,7 +41,7 @@ class TweetCell: UITableViewCell {
             favoriteCountLabel.text = String(favoriteCount!)
             retweetBoolCell = tweet.retweeted
             favoriteBoolCell = tweet.favorited
-            tweetImageButton?.setImage(UIImage(data: NSData(contentsOfURL: NSURL(string: "\(tweet.user!.profileImageUrl!)")!)!), forState: .Normal)
+            // tweetImageButton?.setImage(UIImage(data: NSData(contentsOfURL: NSURL(string: "\(tweet.user!.profileImageUrl!)")!)!), forState: .Normal)
             
             if retweetBoolCell == true {
                 retweetButton.setImage(UIImage(named: "retweet_on"), forState: .Normal)
